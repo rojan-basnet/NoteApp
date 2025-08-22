@@ -16,7 +16,7 @@ const {id,noteId}=useParams()
 
 useEffect(()=>{
   async function fetchNotes(){
-    const res=await fetch(`http://localhost:5000/api/${id}/${noteId}/dashboard/notebody`,
+    const res=await fetch(`https://noteapp-3ep8.onrender.com/api/${id}/${noteId}/dashboard/notebody`,
     {
     method:"Get",
     headers: {
@@ -30,7 +30,7 @@ fetchNotes()
 },[newNoteCounter])
 
 async function handleNoteBodySubmit(){
- const res=await fetch(`http://localhost:5000/api/${id}/${noteId}/dashboard/notebody`,
+ const res=await fetch(`https://noteapp-3ep8.onrender.com/api/${id}/${noteId}/dashboard/notebody`,
   {
     method: "POST",
     headers: {
@@ -45,7 +45,7 @@ async function handleNoteBodySubmit(){
 }
 async function handlenoteDelete(NoteDelId){
   const newId=NoteDelId
- const res=await fetch(`http://localhost:5000/api/${newId}`,
+ const res=await fetch(`https://noteapp-3ep8.onrender.com/api/${newId}`,
   {
     method: "DELETE",
     headers: {

@@ -14,7 +14,7 @@ const navigate=useNavigate()
 
 async function createNewUser(e){
   e.preventDefault();
-const response=await fetch('http://localhost:5000/api/createNewUser',
+const response=await fetch('https://noteapp-3ep8.onrender.com/api/createNewUser',
   {
     method: "POST",
     headers: {
