@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+input:focus{
+    outline: none;
+}
+body{
+    background-color: hsl(0, 0%, 98%);
+}
+.navbar{
+    background-color: #FAFAFA;
+    padding: 10px;
+    box-shadow: 3px 3px 10px hsl(0, 0%, 50%);
+    border-radius: 5px;
+    display: flex;
+}
+.navbar h1{
+    color: hsl(0, 0%, 34%);
+}
+.navbar div{
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+.navbar div button{
+    background-color: hsl(14, 100%, 63%);
+    border:none;
+    padding: 10px;
+    border-radius: 25px;
+    font-size: 1rem;
+    box-shadow: 3px 3px 10px grey;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.navbar div button:hover{
+    background-color:hsl(14, 100%, 73%) ;
+    transform: scale(1.09);
+}
