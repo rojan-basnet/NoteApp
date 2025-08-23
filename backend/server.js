@@ -107,11 +107,11 @@ app.delete('/api/:notebodyId',async (req,res)=>{
     }
 })
 if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,"/frontend/dist")));
+    const frontendPath = path.join(__dirname, 'frontend', 'dist');
+    app.use(express.static(frontendPath));
 
     app.use((req, res) => {
-        const indexPath = path.resolve(__dirname, '../frontend', 'dist', 'index.html');
-        res.sendFile(indexPath);
+        res.sendFile(path.join(frontendPath, "index.html"));
     });
 }
 app.listen(PORT,()=>{
