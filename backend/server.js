@@ -9,7 +9,6 @@ import path from 'path'
 
 const PORT=process.env.PORT||5000;
 const __dirname=path.resolve()
-console.log(__dirname)
 dotenv.config()
 const app=express();
 
