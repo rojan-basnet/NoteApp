@@ -18,7 +18,7 @@ const HomePage = () => {
       <h1>Welcome Users</h1>
       <p>I present to you  the result of 3 months of learning web development</p>
       <h2>Notes App</h2>
-      <p>A full stack to note app to store all your notes..</p>
+      <p>A full stack note app to store all your notes..</p>
       <div className='imageContainer'>
         <img src={image2} alt="second Image" />
         <img src={mainImg} alt="Main image" />
