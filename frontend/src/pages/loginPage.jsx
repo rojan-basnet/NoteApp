@@ -30,7 +30,6 @@ const response=await fetch('https://noteapp-3ep8.onrender.com/api/login',
   }
   if(response.status===401){
     setUser({...user,password:""})
-    setInvalidPassword(true)
   }
 }
 
