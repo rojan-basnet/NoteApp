@@ -14,7 +14,7 @@ const navigate=useNavigate()
 
 async function createNewUser(e){
   e.preventDefault();
-const response=await fetch(`${process.env.FETCH_URL}/api/createNewUser`,
+const response=await fetch(`/api/createNewUser`,
   {
     method: "POST",
     headers: {

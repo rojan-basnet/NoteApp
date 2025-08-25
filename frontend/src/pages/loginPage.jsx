@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import './signInPage.css'
 
 const LoginPage = () => {
-console.log(process.env.REACT_APP_FETCH_URL)
 const [user,setUser]=useState({
     userName:"",
     password:""
@@ -14,7 +13,7 @@ const [invalidPassword,setinvalidPassword]=useState(false)
 async function createNewUser(e){
 e.preventDefault();
 
-const response=await fetch(`${process.env.REACT_APP_FETCH_URL}/api/login`,
+const response=await fetch(`/api/login`,
   {
     method: "POST",
     headers: {
@@ -43,7 +42,7 @@ const response=await fetch(`${process.env.REACT_APP_FETCH_URL}/api/login`,
       <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
       <input type="text" placeholder="Password" value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
     </form>
-    <div style={{display:invalidPassword ? "flex":"none"}}>Incorrect Password!!!</div>
+    <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Incorrect Password!!!</div>
     <button onClick={createNewUser}>Log in</button>
     <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
     </div>
