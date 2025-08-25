@@ -24,8 +24,8 @@ app.post('/api/createNewUser',async (req,res)=>{
     try{
         const existingUserName=await newUser.findOne({userName});
         if(!existingUserName){
-            const hashedPassword= await bcrypt.hash(password,10)
-            const newCreatedUser = new newUser({userName,hashedPassword})
+            const password= await bcrypt.hash(password,10)
+            const newCreatedUser = new newUser({userName,password})
             await newCreatedUser.save()
             return res.status(201).json({message:"new user created",data:newCreatedUser})
         }
