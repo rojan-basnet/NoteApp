@@ -9,6 +9,7 @@ const [user,setUser]=useState({
     password:""
   })
 const navigate=useNavigate()
+const [invalidPassword,setInvalidPassword]=useState(false)
 async function createNewUser(e){
 e.preventDefault();
 
@@ -27,6 +28,13 @@ const response=await fetch('https://noteapp-3ep8.onrender.com/api/login',
     navigate(`/${resData.data._id}/dashboard`);
     localStorage.setItem("userId",resData.data._id)
   }
+  if(response.status===401){
+    setUser({...user,password:""})
+    setInvalidPassword(true)
+  }
+}
+function handleRetryClick(){
+  setInvalidPassword(false)
 }
   return (
     <>
@@ -38,6 +46,7 @@ const response=await fetch('https://noteapp-3ep8.onrender.com/api/login',
     </form>
     <button onClick={createNewUser}>Log in</button>
     <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
+    <div style={{display:invalidPassword ? "flex":"none"}}>Incorrect Password!!! <button onClick={handleRetryClick}>Retry</button></div>
     </div>
     </>
 

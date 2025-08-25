@@ -41,7 +41,6 @@ app.post('/api/login',async (req,res)=>{
 
     if(user){
         if(await bcrypt.compare(password,user.password)){
-            console.log(await bcrypt.compare(password,user.password))
             return res.status(200).json({message:"user logged in",data:user})
         }
         return res.status(401).json("incorrect password")
