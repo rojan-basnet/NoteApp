@@ -13,7 +13,7 @@ const navigate=useNavigate()
 async function createNewUser(e){
 e.preventDefault();
 
-const response=await fetch('https://noteapp-3ep8.onrender.com/api/login',
+const response=await fetch(`${FETCH_URL}/api/login`,
   {
     method: "POST",
     headers: {

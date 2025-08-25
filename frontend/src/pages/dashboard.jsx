@@ -22,7 +22,7 @@ useEffect(()=>{
   async function handleNotesFetch(){
     if(userId){
     try{
-    const res= await fetch(`https://noteapp-3ep8.onrender.com/api/${userId}/dashboard`,
+    const res= await fetch(`${FETCH_URL}/api/${userId}/dashboard`,
       {
         method:"GET",
         headers:{
@@ -44,7 +44,7 @@ handleNotesFetch()
 [userId,notesubmitCounter])
 
 async function handleNoteSubmit(){
-  const response=await fetch(`https://noteapp-3ep8.onrender.com/api/${userId}/addNewNote`,
+  const response=await fetch(`${FETCH_URL}/api/${userId}/addNewNote`,
   {
     method: "POST",
     headers: {
