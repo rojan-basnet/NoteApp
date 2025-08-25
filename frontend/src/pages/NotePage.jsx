@@ -16,7 +16,7 @@ const {id,noteId}=useParams()
 
 useEffect(()=>{
   async function fetchNotes(){
-    const res=await fetch(`${FETCH_URL}/api/${id}/${noteId}/dashboard/notebody`,
+    const res=await fetch(`${process.env.FETCH_URL}/api/${id}/${noteId}/dashboard/notebody`,
     {
     method:"Get",
     headers: {
@@ -30,7 +30,7 @@ fetchNotes()
 },[newNoteCounter])
 
 async function handleNoteBodySubmit(){
- const res=await fetch(`${FETCH_URL}/api/${id}/${noteId}/dashboard/notebody`,
+ const res=await fetch(`${process.env.FETCH_URL}/api/${id}/${noteId}/dashboard/notebody`,
   {
     method: "POST",
     headers: {
@@ -45,7 +45,7 @@ async function handleNoteBodySubmit(){
 }
 async function handlenoteDelete(NoteDelId){
   const newId=NoteDelId
- const res=await fetch(`${FETCH_URL}/api/${newId}`,
+ const res=await fetch(`${process.env.FETCH_URL}/api/${newId}`,
   {
     method: "DELETE",
     headers: {

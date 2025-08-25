@@ -4,16 +4,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import './signInPage.css'
 
 const LoginPage = () => {
+console.log(process.env.REACT_APP_FETCH_URL)
 const [user,setUser]=useState({
     userName:"",
     password:""
   })
 const navigate=useNavigate()
-
+const [invalidPassword,setinvalidPassword]=useState(false)
 async function createNewUser(e){
 e.preventDefault();
 
-const response=await fetch(`${FETCH_URL}/api/login`,
+const response=await fetch(`${process.env.REACT_APP_FETCH_URL}/api/login`,
   {
     method: "POST",
     headers: {
@@ -30,6 +31,7 @@ const response=await fetch(`${FETCH_URL}/api/login`,
   }
   if(response.status===401){
     setUser({...user,password:""})
+    setinvalidPassword(true)
   }
 }
 
