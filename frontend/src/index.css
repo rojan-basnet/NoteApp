@@ -46,3 +46,22 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   transform: rotate(-5deg); /* slight tilt for effect */
 }
+@media (max-width:500px) {
+  .imageContainer {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .imageContainer img:last-child{
+    position: static;
+    width: 80%;
+    transform: none;
+    top: 0px;
+    right: 0px;
+  }
+  .imageContainer img:first-child{
+    position: static;
+  }
+}

@@ -23,6 +23,15 @@ const HomePage = () => {
         <img src={image2} alt="second Image" />
         <img src={mainImg} alt="Main image" />
       </div>
+      <div className='featuresTable'>
+        <h1>MERN Notes App Features </h1>
+        <ul>
+          <li> <b>Secure Auth:</b>  Signup/Login with bcrypt</li>
+          <li> <b>Notes CRUD:</b> Add, delete, view notes (update feature comming soon) </li>
+          <li> <b>Responsive UI:</b> Built with React</li>
+          <li> <b>Backend:</b> Node.js, Express, MongoDB</li>
+        </ul>
+      </div>
     </div>
     </>
 

@@ -38,3 +38,32 @@ body{
     background-color:hsl(14, 100%, 73%) ;
     transform: scale(1.09);
 }
+.featuresTable{
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(0, 0%, 90%);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.featuresTable h1{
+    width: 90%;
+    background-color: hsl(0, 0%, 80%);
+    border-radius: 10px;
+}
+.featuresTable ul{
+    padding: 10px;
+    display: flex;
+    gap: 5px;
+    font-size: 1.2rem;
+    list-style:none;
+    text-align: start;
+    flex-direction: column;
+}
+.featuresTable ul li{
+    padding: 5px;
+    border-radius: 5px;
+}
+.featuresTable ul li:hover{
+    background-color: grey;
+}
