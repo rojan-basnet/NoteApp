@@ -5,15 +5,18 @@ import './signInPage.css'
 
 const SignUpPage = () => {
 
-
 const [user,setUser]=useState({
   userName:"",
   password:""
 })
 const navigate=useNavigate()
+const [invalidPassword,setinvalidPassword]=useState(false);
+const [userNameAvailble,setuserNameAvailble]=useState(true);
 
 async function createNewUser(e){
+  setuserNameAvailble(true)
   e.preventDefault();
+  if(user.password.length>=8){
 const response=await fetch(`/api/createNewUser`,
   {
     method: "POST",
@@ -30,6 +33,11 @@ const response=await fetch(`/api/createNewUser`,
     navigate(`/${res.data._id}/dashboard`);
     localStorage.setItem("userId",res.data._id)
   }
+  if(response.status==409){
+    setuserNameAvailble(false)
+  }
+  }
+  setinvalidPassword(true)
 }
   return (
     <>
@@ -37,7 +45,9 @@ const response=await fetch(`/api/createNewUser`,
     <h1>Create an account</h1>
     <form>
       <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
+      <div style={{display:userNameAvailble ? "none":"flex",color:"red"}}> Username already exists!</div>
       <input type="text" placeholder='Password' value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
+      <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Password must be at least 8 letters !!!</div>
     </form>
     <button onClick={createNewUser}>Create account</button>
     <p>Already have an account ? <Link to="/loginpage">Log in</Link></p>

@@ -41,8 +41,8 @@ const response=await fetch(`/api/login`,
     <form>
       <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
       <input type="text" placeholder="Password" value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
+      <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Incorrect Password!!!</div>
     </form>
-    <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Incorrect Password!!!</div>
     <button onClick={createNewUser}>Log in</button>
     <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
     </div>
