@@ -12,6 +12,7 @@ const navigate=useNavigate()
   const [userNotes,setUserNotes]=useState([])
   const [notesubmitCounter,setNoteSubmitCounter]=useState(0);
   const [userId,setUserId]=useState("");
+  const [isEmpty,setIsEmpty]=useState(false);
 
 useEffect(()=>{
   const id=localStorage.getItem("userId");
@@ -44,17 +45,27 @@ handleNotesFetch()
 [userId,notesubmitCounter])
 
 async function handleNoteSubmit(){
-  const response=await fetch(`/api/${userId}/addNewNote`,
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(note),
-  },
-)
-  const res = await response.json();
-  setNoteSubmitCounter(NC=>NC+1)
+  if(note.subject){
+    setIsEmpty(false)
+    try{
+      const response=await fetch(`/api/${userId}/addNewNote`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(note),
+      },
+    )
+      const res = await response.json();
+      setNoteSubmitCounter(NC=>NC+1)
+    }catch(error){
+      console.log(error)
+    }
+  }else{
+    setIsEmpty(true)
+  }
+
 }
 function handleSubjectClick(e){
 const noteId=e._id
@@ -64,7 +75,7 @@ navigate(`/${userId}/${noteId}/dashboard/notebody`)
     <>
     <div className='dashboardContainer'>
     <div className='newSubInput'>
-      <input type="text" placeholder='Add New Subject' value={note.subject} onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
+      <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"red":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
       <button onClick={handleNoteSubmit}>Add Subject</button>
     </div>
     <div className='showNoteSub'>

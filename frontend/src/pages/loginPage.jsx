@@ -10,27 +10,52 @@ const [user,setUser]=useState({
   })
 const navigate=useNavigate()
 const [invalidPassword,setinvalidPassword]=useState(false)
+const [userNameAvailble,setuserNameAvailble]=useState(true);
+const [passwordValidMsg,setpasswordValidMsg]=useState("");
+const [userExistsMsg,setUserExistsMsg]=useState("");
+
 async function createNewUser(e){
 e.preventDefault();
+    setuserNameAvailble(true)
+    setinvalidPassword(false)
+  if(user.password.length>=8 && user.userName.length>0){
 
-const response=await fetch(`/api/login`,
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  },
-)
-  const resData = await response.json();
-
-  if(response.status==200){
-    navigate(`/${resData.data._id}/dashboard`);
-    localStorage.setItem("userId",resData.data._id)
+    try{
+      const response=await fetch(`/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        },
+      )
+        
+        if(response.status==200){
+          const resData = await response.json();
+          navigate(`/${resData.data._id}/dashboard`);
+          localStorage.setItem("userId",resData.data._id)
+        }
+        else if(response.status===401){
+          setUser({...user,password:""})
+          setinvalidPassword(true)
+          setpasswordValidMsg("Incorrect Password!!!")
+        }
+        else if(response.status==404){
+          setuserNameAvailble(false)
+          setUserExistsMsg("User doesn't exist !")
+        }
+    }catch(error){
+      console.log(error)
+    }
   }
-  if(response.status===401){
-    setUser({...user,password:""})
+  if(user.userName.length==0){
+    setuserNameAvailble(false)
+    setUserExistsMsg("You must enter your username !")
+  }
+  if(user.password.length<8){
     setinvalidPassword(true)
+    setpasswordValidMsg("Password must be at least 8 letters !")
   }
 }
 
@@ -40,8 +65,9 @@ const response=await fetch(`/api/login`,
     <h1>Log In</h1>
     <form>
       <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
+      <div style={{display:userNameAvailble ? "none":"flex",color:"red"}}> {userExistsMsg}</div>
       <input type="text" placeholder="Password" value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
-      <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Incorrect Password!!!</div>
+      <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>{passwordValidMsg}</div>
     </form>
     <button onClick={createNewUser}>Log in</button>
     <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>

@@ -12,7 +12,7 @@ const [user,setUser]=useState({
 const navigate=useNavigate()
 const [invalidPassword,setinvalidPassword]=useState(false);
 const [userNameAvailble,setuserNameAvailble]=useState(true);
-const [useNameAvailableMsg,setuseNameAvailableMsg]=useState("")
+const [useNameAvailableMsg,setuseNameAvailableMsg]=useState("");
 
 async function createNewUser(e){
   setinvalidPassword(false)
