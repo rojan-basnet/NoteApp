@@ -60,9 +60,8 @@ async function handleNoteBodySubmit(){
 
 }
 async function handlenoteDelete(NoteDelId){
-  const newId=NoteDelId
     try{
-        const res=await fetch(`/api/${newId}`,
+        const res=await fetch(`/api/${id}/${noteId}/${NoteDelId}`,
           {
             method: "DELETE",
             headers: {
