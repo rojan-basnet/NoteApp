@@ -75,7 +75,7 @@ navigate(`/${userId}/${noteId}/dashboard/notebody`)
     <>
     <div className='dashboardContainer'>
     <div className='newSubInput'>
-      <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"red":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
+      <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"hsla(0, 100%, 42%, 1.00)":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
       <button onClick={handleNoteSubmit}>Add Subject</button>
     </div>
     <div className='showNoteSub'>

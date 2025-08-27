@@ -85,7 +85,7 @@ async function handlenoteDelete(NoteDelId){
         </div>
         <input type="text" placeholder='Topic' value={notebody.topic} onChange={(e)=>setNoteBody({...notebody,topic:e.target.value})}/>
         <input type="text" placeholder='Content'value={notebody.content} onChange={(e)=>setNoteBody({...notebody,content:e.target.value})} />
-        <div style={{display: isEmpty? "flex":"none",color:"red"}}>You can't add empty notes !</div>
+        <div style={{display: isEmpty? "flex":"none",color:"hsla(0, 100%, 44%, 1.00)"}}>You can't add empty notes !</div>
         <button onClick={handleNoteBodySubmit}>Add New Note</button>
     </div>
   )
