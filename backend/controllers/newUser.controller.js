@@ -34,7 +34,7 @@ export const loginUser=async (req,res)=>{
                 const accessToken=jwt.sign(
                     {id:user._id,
                     userName:user.userName}
-                    ,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"10s"})
+                    ,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"10m"})
                 
                 const refreshToken=jwt.sign(
                     {id:user._id,
