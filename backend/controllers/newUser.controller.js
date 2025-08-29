@@ -31,24 +31,25 @@ export const loginUser=async (req,res)=>{
         if(user){
             if(await bcrypt.compare(password,user.password)){
 
-                const accessToken=jwt.sign(
-                    {id:user._id,
-                    userName:user.userName}
-                    ,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"10m"})
-                
-                const refreshToken=jwt.sign(
-                    {id:user._id,
-                    userName:user.userName}
-                    ,process.env.REFRESH_TOKEN_SECRET,{expiresIn:"10s"})
+                try {
+                    const accessToken=jwt.sign(
+                        {id:user._id,
+                        userName:user.userName}
+                        ,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"24h"})
 
-                return res.status(200).json({message:"user logged in",data:{_id:user._id},accessToken:accessToken,refreshToken:refreshToken})
+                    return res.status(200).json({message:"user logged in",data:{_id:user._id},accessToken:accessToken})
+                } catch (jwtError) {
+                    console.error('JWT Generation Error:', jwtError);
+                    console.error('ACCESS_TOKEN_SECRET exists:', !!process.env.ACCESS_TOKEN_SECRET);
+                    return res.status(500).json({success:false,message:"JWT generation failed",error:jwtError.message})
+                }
             }
             return res.status(401).json({success:false,error:"incorrect password"})
         }
         return res.status(404).json({error:"user Does not exist"})
     }catch(error){
-        res.status(500).json({success:false,message:"error while loging in user"})
+        console.error('Login Error:', error);
+        res.status(500).json({success:false,message:"error while loging in user",error:error.message})
     }
-
 }
 
