@@ -19,10 +19,9 @@ export const createUser=async (req,res)=>{
             const refreshToken=jwt.sign({userName:userName},process.env.REFRESH_TOKEN_SECRET,{expiresIn:"7d"})
 
                     const newRefreshToken= new RefreshToken({refreshToken:refreshToken,username:userName})
-                    localStorage.setItem("refreshToken",newRefreshToken)
                     await newRefreshToken.save();
 
-            return res.status(201).json({message:"new user created",data:{_id:newCreatedUser._id},accessToken:accessToken})
+            return res.status(201).json({message:"new user created",data:{_id:newCreatedUser._id},accessToken:accessToken,refreshToken:refreshToken})
         }
         return res.status(409).json({error:"username already exists"})
     }catch(error){
@@ -44,10 +43,9 @@ export const loginUser=async (req,res)=>{
                     const refreshToken=jwt.sign({userName:userName},process.env.REFRESH_TOKEN_SECRET,{expiresIn:"7d"})
 
                     const newRefreshToken= new RefreshToken({refreshToken:refreshToken,username:userName})
-                    localStorage.setItem("refreshToken",newRefreshToken)
                     await newRefreshToken.save();
 
-                    return res.status(200).json({message:"user logged in",data:{_id:user._id},accessToken:accessToken})
+                    return res.status(200).json({message:"user logged in",data:{_id:user._id},accessToken:accessToken,refreshToken:refreshToken})
                 } catch (jwtError) {
                     console.error('JWT Generation Error:', jwtError);
                     console.error('ACCESS_TOKEN_SECRET exists:', !!process.env.ACCESS_TOKEN_SECRET);
