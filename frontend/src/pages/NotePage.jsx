@@ -13,16 +13,24 @@ const [notebody,setNoteBody]=useState({
 const [subRelatedNotes,setSubRelatedNotes]=useState([]);
 const [newNoteCounter,setNewNoteCounter]=useState(0);
 const [isEmpty,setIsEmpty]=useState(false);
+const [userToken,setUserToken]=useState("");
 const {id,noteId}=useParams()
 
 useEffect(()=>{
+  const token=localStorage.getItem("userToken");
+  setUserToken(token);
+},[])
+
+useEffect(()=>{
+  if (!userToken) return
   try{
       async function fetchNotes(){
         const res=await fetch(`/api/${id}/${noteId}/dashboard/notebody`,
         {
-        method:"Get",
+        method:"GET",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${userToken}`
         },
         })
       const data=await res.json()
@@ -33,7 +41,7 @@ useEffect(()=>{
     console.log(error)
   }
 
-},[newNoteCounter])
+},[userToken,newNoteCounter])
 
 async function handleNoteBodySubmit(){
   if(notebody.topic && notebody.content){
@@ -44,6 +52,7 @@ async function handleNoteBodySubmit(){
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${userToken}`
           },
           body:JSON.stringify(notebody)
         },
@@ -66,6 +75,7 @@ async function handlenoteDelete(NoteDelId){
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${userToken}`
             },
             body: JSON.stringify(notebody),
           },

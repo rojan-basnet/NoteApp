@@ -6,7 +6,7 @@ import path from 'path'
 import userAuthRoutes from './routes/newUser.model.js'
 import noteRoutes from './routes/note.model.js'
 import noteBodyRoutes from './routes/noteBody.model.js'
-
+import { verifyJwtToken } from './middleware/verifyjwtToken.js';
 
 const PORT=process.env.PORT||5000;
 const __dirname=path.resolve()
@@ -18,9 +18,9 @@ app.use(express.json())
 
 app.use('/',userAuthRoutes)
 
-app.use('/api/:id',noteRoutes)
+app.use('/api/:id',verifyJwtToken,noteRoutes)
 
-app.use('/api/:id/:noteId',noteBodyRoutes)
+app.use('/api/:id/:noteId',verifyJwtToken,noteBodyRoutes)
 
 
 if(process.env.NODE_ENV==="production"){

@@ -12,11 +12,14 @@ const navigate=useNavigate()
   const [userNotes,setUserNotes]=useState([])
   const [notesubmitCounter,setNoteSubmitCounter]=useState(0);
   const [userId,setUserId]=useState("");
+  const [userToken,setUserToken]=useState("")
   const [isEmpty,setIsEmpty]=useState(false);
 
 useEffect(()=>{
-  const id=localStorage.getItem("userId");
-  setUserId(id);
+  const token=localStorage.getItem("userToken");
+  const id=localStorage.getItem("userId")
+  setUserToken(token);
+  setUserId(id)
 },[])
 
 useEffect(()=>{
@@ -28,6 +31,7 @@ useEffect(()=>{
         method:"GET",
         headers:{
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${userToken}`
         },
       }
     )
@@ -53,6 +57,7 @@ async function handleNoteSubmit(){
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${userToken}`
         },
         body: JSON.stringify(note),
       },

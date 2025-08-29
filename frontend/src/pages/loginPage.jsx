@@ -14,7 +14,7 @@ const [userNameAvailble,setuserNameAvailble]=useState(true);
 const [passwordValidMsg,setpasswordValidMsg]=useState("");
 const [userExistsMsg,setUserExistsMsg]=useState("");
 
-async function createNewUser(e){
+async function loginUser(e){
 e.preventDefault();
     setuserNameAvailble(true)
     setinvalidPassword(false)
@@ -33,8 +33,10 @@ e.preventDefault();
         
         if(response.status==200){
           const resData = await response.json();
+          localStorage.setItem("userId",resData.data._id);
+          localStorage.setItem("userToken",resData.accessToken);
           navigate(`/${resData.data._id}/dashboard`);
-          localStorage.setItem("userId",resData.data._id)
+
         }
         else if(response.status===401){
           setUser({...user,password:""})
@@ -69,7 +71,7 @@ e.preventDefault();
       <input type="text" placeholder="Password" value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
       <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>{passwordValidMsg}</div>
     </form>
-    <button onClick={createNewUser}>Log in</button>
+    <button onClick={loginUser}>Log in</button>
     <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
     </div>
     </>
