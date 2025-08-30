@@ -37,6 +37,7 @@ async function createNewUser(e){
             setUser({userName:"",password:""});
             navigate(`/${res.data._id}/dashboard`);
             localStorage.setItem("userId",res.data._id)
+            localStorage.setItem("refreshToken",res.refreshToken);
 
           }
           else if(response.status==409){

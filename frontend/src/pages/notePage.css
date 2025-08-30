@@ -2,7 +2,7 @@
   background-color: #FAFAFA;
   color: #212121;
   padding: 20px;
-  max-width: 800px;
+  width: 600px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: 'Roboto', sans-serif;
@@ -11,10 +11,81 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.navbarNoteBody{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #e2e8f0;
+}
+.navbarNoteBody div div a {
+  background-color: #a0ccff;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  padding:10px ;
+  border-radius: 10px;
+}
+.navbarNoteBody div div a.active{
+  background-color: #008cff;
+  color:black;
+}
+.navbarNoteBody div div a:hover {
+  cursor: pointer;
+}
+.navbarNoteBody div{
+  padding:10px ;
+  border-radius: 10px;
+  font-size: 1rem;
+  display: flex;
+  gap:10px;
+}
 
+.mailIcon {
+  background-color:transparent ;
+  border:none;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+
+}
+.mailIcon i{
+  font-size: 2rem;
+  color: #008cff;
+}
+.mailIcon i:hover{
+  color: #70cbff;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.mailbox{
+  height: 300px;
+  background-color: #ddd;
+  border-radius: 5px;
+  border:1px solid grey;
+  width: 90%;
+  height: 50%;
+  max-width: 600px;
+}
+.mailboxWhole{
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(0,0,0,0.5);
+
+}
+.mailboxWhole .hideBtn:hover {
+  cursor: pointer;
+}
 .addNoteButton {
   position: fixed;
-  top: 20px;
+  top: 20%;
   right: 20px;
   cursor: pointer;
   padding: 10px;
@@ -23,6 +94,28 @@
   border-radius: 4px;
   transition: transform .3s ease;
   box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+  font-size: 2rem;
+  font-weight: bold;
+}
+.addNoteButton:hover {
+  background-color: hwb(231 34% 27%);
+}
+.logoutBtn{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #212121;
+  border:none;
+  
+}
+.logoutBtn:hover{
+  cursor: pointer;
+  background-color: #2d3748;
+  transform: scale(1.05);
+}
+.logoutBtn i{
+  height: 100%;
+  width: 100%;
+  color: white;
 }
 
 .mainNotesContainer .NoteTopic {

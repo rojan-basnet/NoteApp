@@ -35,6 +35,7 @@ e.preventDefault();
           const resData = await response.json();
           localStorage.setItem("userId",resData.data._id);
           localStorage.setItem("userToken",resData.accessToken);
+          localStorage.setItem("refreshToken",resData.refreshToken);
           navigate(`/${resData.data._id}/dashboard`);
 
         }

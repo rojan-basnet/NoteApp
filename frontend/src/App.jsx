@@ -15,6 +15,7 @@ function App() {
         <Route path='/signUpPage' element={<SignUpPage/>} />
         <Route path='/:id/dashboard' element={<Dashboard/>} />
         <Route path='/:id/:noteId/dashboard/notebody' element={<NotePage/>} />
+        <Route path='/:id/:noteId/dashboard/friends/notebody' element={<NotePage/>} />
       </Routes>
     </>
   )

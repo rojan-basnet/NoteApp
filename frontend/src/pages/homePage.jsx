@@ -1,8 +1,39 @@
 import {Link} from 'react-router-dom';
 import mainImg from '../assets/notebodypage.png'
 import image2 from '../assets/notesPage.png'
+import { useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const HomePage = () => {
+
+const [refreshToken,setRefreshToken]=useState("")
+const navigate=useNavigate()
+useEffect( ()=>{
+
+  async function getrefreshToken(){
+
+  const token=localStorage.getItem("refreshToken")
+
+  if(token){
+    setRefreshToken(token)
+
+    const res= await fetch('/api/auth/refresh',{
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify({refreshToken:token}),
+      }
+    )
+  const data=await res.json()
+  localStorage.setItem("userToken",data.accessToken)
+
+  if(res.status==200){
+    navigate(`/${data.data.userId}/dashboard`)
+  }
+  }
+  }
+getrefreshToken()
+},[])
+
   return (
     <>
     <div className='navbar'>

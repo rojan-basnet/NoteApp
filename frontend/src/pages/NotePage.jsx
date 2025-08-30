@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams ,NavLink,useNavigate} from 'react-router-dom'
 import './notePage.css'
 
 
@@ -16,6 +16,8 @@ const [isEmpty,setIsEmpty]=useState(false);
 const [userToken,setUserToken]=useState("");
 const {id,noteId}=useParams()
 const [showAddNote,setShowAddNote]=useState(false);
+const [showMailBox,setshowMailBox]=useState(false)
+const navigate=useNavigate()
 
 useEffect(()=>{
   const token=localStorage.getItem("userToken");
@@ -87,8 +89,41 @@ async function handlenoteDelete(NoteDelId){
       console.log(error)
     }
 }
+function handleMailBoxShow(){
+  setshowMailBox(true)
+}
+function hideMailBox(){
+  setshowMailBox(false)
+}
+async function handleUserLogout(){
+  const res= await fetch('/api/auth/del',{
+    method:"DELETE",
+    headers:{
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${userToken}`
+    },
+    body:JSON.stringify({refreshToken:localStorage.getItem("refreshToken")})
+  })
+  if(res.ok){
+    navigate('/loginPage')
+  }
+  const data= await res.json()
+
+}
   return (
     <>
+    <div className='navbarNoteBody' >
+      <button className='mailIcon' onClick={handleMailBoxShow}><i class="fa-solid fa-envelope"></i></button>
+      <div className='mailboxWhole' style={{display:showMailBox?"flex":"none"}}>
+          <div className='mailbox'> <div><h1>Mail Box </h1> <div className='hideBtn' onClick={hideMailBox}>X</div> </div> </div>
+         
+         </div>
+      <div>
+        <div><NavLink to= {`/${id}/${noteId}/dashboard/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Your notes</NavLink></div>
+        <div><NavLink to= {`/${id}/${noteId}/dashboard/friends/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Friend's notes</NavLink></div>
+      </div>
+       <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+    </div>
       <div className='notesContainer'>
           {subRelatedNotes.length === 0 ? (
             <div className='noNotesMessage'>
