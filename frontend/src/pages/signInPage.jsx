@@ -30,13 +30,15 @@ async function createNewUser(e){
           },
           body: JSON.stringify(user),
         },
+        
       )
+      const res = await response.json();
 
-          if(response.status==201){
-            const res = await response.json();
+          if(response.status==201){ 
             setUser({userName:"",password:""});
             navigate(`/${res.data._id}/dashboard`);
-            localStorage.setItem("userId",res.data._id)
+            location.setItem("userId",res.data._id)
+            localStorage.setItem("userToken",res.accessToken)
             localStorage.setItem("refreshToken",res.refreshToken);
 
           }
