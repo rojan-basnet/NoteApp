@@ -32,12 +32,6 @@
   height: 10px;
   animation: spin 1s linear infinite; /* Infinite rotation */
   display: inline-block;
-  display: flex;          /* allows centering loader */
-  align-items: center;
-  justify-content: center;
-  min-width: 120px;       /* reserve enough space */
-  gap: 8px;               /* spacing between loader and text */
-
 }
 
 @keyframes spin {
