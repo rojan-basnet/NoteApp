@@ -1,10 +1,10 @@
 .mainNotesContainer {
-  background-color: #FAFAFA;
+  background-color: #d3d3d3;
   color: #212121;
   padding: 20px;
   width: 600px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px hsl(0, 0%, 32%);
   font-family: 'Roboto', sans-serif;
   position: fixed;
   bottom: 20px;
@@ -33,11 +33,19 @@
   cursor: pointer;
 }
 .navbarNoteBody div{
-  padding:10px ;
+  padding:5px ;
   border-radius: 10px;
   font-size: 1rem;
   display: flex;
   gap:10px;
+}
+.navbarNoteBody a {
+  transition:  transform .3s ease ,background-color .3s ease ;
+  
+}
+.navbarNoteBody a:hover{
+  transform:scale(1.1) ;
+  background-color: #70cbff;
 }
 
 .mailIcon {
@@ -139,7 +147,7 @@
   width: 97%;
   padding: 12px;
   margin: 8px 0;
-  border: 1px solid #ddd;
+  border: 1px solid #7b7b7b;
   border-radius: 4px;
   font-size: 1rem;
   background-color: #fff;

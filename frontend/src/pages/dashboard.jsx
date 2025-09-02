@@ -14,6 +14,7 @@ const navigate=useNavigate()
   const [userId,setUserId]=useState("");
   const [userToken,setUserToken]=useState("")
   const [isEmpty,setIsEmpty]=useState(false);
+  const [loading,setLoading]=useState(false)
 
 useEffect(()=>{
   const token=localStorage.getItem("userToken");
@@ -50,6 +51,7 @@ handleNotesFetch()
 
 async function handleNoteSubmit(){
   if(note.subject){
+    setLoading(true)
     setIsEmpty(false)
     try{
       const response=await fetch(`/api/${userId}/addNewNote`,
@@ -64,6 +66,7 @@ async function handleNoteSubmit(){
     )
       const res = await response.json();
       setNoteSubmitCounter(NC=>NC+1)
+      setLoading(false)
     }catch(error){
       console.log(error)
     }
@@ -76,12 +79,32 @@ function handleSubjectClick(e){
 const noteId=e._id
 navigate(`/${userId}/${noteId}/dashboard/notebody`)
 }
+
+async function handleUserLogout(){
+  const res= await fetch('/api/auth/del',{
+    method:"DELETE",
+    headers:{
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${userToken}`
+    },
+    body:JSON.stringify({refreshToken:localStorage.getItem("refreshToken")})
+  })
+  if(res.ok){
+    navigate('/loginPage')
+  }
+  const data= await res.json()
+
+}
   return (
     <>
+    <div className='navbarNoteBody'>
+      <h1>NOTES</h1>
+      <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+    </div>
     <div className='dashboardContainer'>
     <div className='newSubInput'>
       <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"hsla(0, 100%, 42%, 1.00)":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
-      <button onClick={handleNoteSubmit}>Add Subject</button>
+      <button onClick={handleNoteSubmit} disabled={loading}>{ loading? <div> <div className="loader"></div> Add Subject</div> :"Add Subject" }</button>
     </div>
     <div className='showNoteSub'>
       {

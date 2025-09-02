@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './signInPage.css'
@@ -14,6 +14,15 @@ const [userNameAvailble,setuserNameAvailble]=useState(true);
 const [passwordValidMsg,setpasswordValidMsg]=useState("");
 const [userExistsMsg,setUserExistsMsg]=useState("");
 
+useEffect(()=>{
+  function handleBackClick(){
+    navigate('/',{replace:true})
+  }
+    window.addEventListener("popstate",handleBackClick)
+  return ()=>{
+    window.removeEventListener("popstate",addEventListener)
+  }
+},[navigate])
 async function loginUser(e){
 e.preventDefault();
     setuserNameAvailble(true)
