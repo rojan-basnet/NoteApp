@@ -119,8 +119,8 @@ async function handleUserLogout(){
          
          </div>
       <div>
-        <div><NavLink to= {`/${id}/${noteId}/dashboard/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Your notes</NavLink></div>
-        <div><NavLink to= {`/${id}/${noteId}/dashboard/friends/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Friend's notes</NavLink></div>
+        <div><NavLink to= {`/${id}/${noteId}/dashboard/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Notes</NavLink></div>
+        <div><NavLink to= {`/${id}/${noteId}/dashboard/friends/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Shared</NavLink></div>
         <div><NavLink to={`/${id}/dashboard/`}>Subjects</NavLink></div>
       </div>
        <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
