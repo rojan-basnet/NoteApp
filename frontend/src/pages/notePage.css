@@ -108,19 +108,19 @@
 .addNoteButton:hover {
   background-color: hwb(231 34% 27%);
 }
-.logoutBtn{
+.navbarNoteBody button{
   padding: 10px;
   border-radius: 10px;
   background-color: #212121;
   border:none;
   
 }
-.logoutBtn:hover{
+.navbarNoteBody button:hover{
   cursor: pointer;
   background-color: #2d3748;
   transform: scale(1.05);
 }
-.logoutBtn i{
+.navbarNoteBody button i{
   height: 100%;
   width: 100%;
   color: white;

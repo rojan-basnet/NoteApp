@@ -41,7 +41,7 @@ app.post('/api/auth/refresh', async  (req,res)=>{
 
 app.use('/',userAuthRoutes)
 
-app.use('/api/:id',verifyJwtToken,noteRoutes)
+app.use('/api/:id',verifyJwtToken,noteRoutes) 
 
 app.use('/api/:id/:noteId',verifyJwtToken,noteBodyRoutes)
 

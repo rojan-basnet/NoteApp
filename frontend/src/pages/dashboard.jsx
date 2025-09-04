@@ -14,7 +14,10 @@ const navigate=useNavigate()
   const [userId,setUserId]=useState("");
   const [userToken,setUserToken]=useState("")
   const [isEmpty,setIsEmpty]=useState(false);
-  const [loading,setLoading]=useState(false)
+  const [loading,setLoading]=useState(false);
+  const [multiSelectIsON,setMultiSelectIsON]=useState(false)
+  const [selectedNotesId,setSelectedNotesId]=useState([])
+  
 
 useEffect(()=>{
   const token=localStorage.getItem("userToken");
@@ -93,27 +96,76 @@ async function handleUserLogout(){
     navigate('/loginPage')
   }
   const data= await res.json()
+}
 
+function handleMultitSelect(){
+  setMultiSelectIsON(!multiSelectIsON)
+}
+
+function handleSelectedNotes(ele){
+   setSelectedNotesId(prev => {
+    if (prev.includes(ele._id)) {
+      return prev.filter(id => id !== ele._id);
+    } else {
+      return [...prev, ele._id];
+    }
+  });
+}
+
+
+async function handleSelectedNoteDelete(){
+
+  if(selectedNotesId.length>0){
+    const res= await fetch(`/api/${userId}/deleteNotes`,{
+      method:"DELETE",
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${userToken}`
+      },
+      body:JSON.stringify({ids:selectedNotesId})
+    }
+    )
+    const data= await res.json()
+    
+  }
+  setNoteSubmitCounter(prev=>prev+1)
+  setSelectedNotesId([])
+  setMultiSelectIsON(false)
 }
   return (
     <>
     <div className='navbarNoteBody'>
       <h1>NOTES</h1>
-      <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
-    </div>
-    <div className='dashboardContainer'>
-    <div className='newSubInput'>
-      <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"hsla(0, 100%, 42%, 1.00)":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
-      <button onClick={handleNoteSubmit} disabled={loading}>{ loading? <div className="loader"></div>:"Add Subject" }</button>
-    </div>
-    <div className='showNoteSub'>
-      {
-        userNotes.length==0?<div>You have no notes..</div>:userNotes.map((ele,index)=>(<button key={index} onClick={()=>handleSubjectClick(ele)}>{ele.subject}</button> ))
-      }
-    </div>
+      <div>
+        <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        <button onClick={handleMultitSelect}><i class="fa-solid fa-list-check"></i></button>
+      </div>
     </div>
 
-    
+    <div className='dashboardContainer'>
+        <div className='newSubInput'>
+          <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"hsla(0, 100%, 42%, 1.00)":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
+          <button onClick={handleNoteSubmit} disabled={loading}>{ loading? <div className="loader"></div>:"Add Subject" }</button>
+        </div>
+
+        <div className='showNoteSub'>
+          {
+            userNotes.length==0?<div>You have no notes..</div>:userNotes.map(
+              (ele,index)=>(
+                <div key={ele._id}>
+                  <input type="checkbox" style={{display:multiSelectIsON?"block":"none"}}  onChange={()=>handleSelectedNotes(ele)}/>
+                  <button onClick={()=>handleSubjectClick(ele)} disabled={multiSelectIsON ? true:false}> 
+                    {ele.subject}
+                </button> 
+              </div>))
+          }
+        </div>
+    </div>
+
+    <div className='optinsToShare' style={{display:multiSelectIsON?"flex":"none"}}>
+          <button onClick={handleSelectedNoteDelete}><i class="fa-solid fa-trash"></i></button>
+          <button><i class="fa-solid fa-share"></i></button>
+    </div>
     </>
 
   )
