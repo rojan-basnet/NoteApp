@@ -30,7 +30,7 @@ useEffect(()=>{
   async function handleNotesFetch(){
     if(userId){
     try{
-    const res= await fetch(`/api/${userId}/dashboard`,
+    const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${userId}/dashboard`,
       {
         method:"GET",
         headers:{
@@ -57,7 +57,7 @@ async function handleNoteSubmit(){
     setLoading(true)
     setIsEmpty(false)
     try{
-      const response=await fetch(`/api/${userId}/addNewNote`,
+      const response=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${userId}/addNewNote`,
       {
         method: "POST",
         headers: {
@@ -84,7 +84,7 @@ navigate(`/${userId}/${noteId}/dashboard/notebody`)
 }
 
 async function handleUserLogout(){
-  const res= await fetch('/api/auth/del',{
+  const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/auth/del`,{
     method:"DELETE",
     headers:{
       "Content-Type": "application/json",
@@ -116,7 +116,7 @@ function handleSelectedNotes(ele){
 async function handleSelectedNoteDelete(){
 
   if(selectedNotesId.length>0){
-    const res= await fetch(`/api/${userId}/deleteNotes`,{
+    const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${userId}/deleteNotes`,{
       method:"DELETE",
       headers:{
         "Content-Type": "application/json",
@@ -137,8 +137,8 @@ async function handleSelectedNoteDelete(){
     <div className='navbarNoteBody'>
       <h1>NOTES</h1>
       <div>
-        <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
-        <button onClick={handleMultitSelect}><i class="fa-solid fa-list-check"></i></button>
+        <button onClick={handleUserLogout} className='logoutBtn' ><i className="fa-solid fa-arrow-right-from-bracket"></i></button>
+        <button onClick={handleMultitSelect}><i className="fa-solid fa-list-check"></i></button>
       </div>
     </div>
 
@@ -163,8 +163,8 @@ async function handleSelectedNoteDelete(){
     </div>
 
     <div className='optinsToShare' style={{display:multiSelectIsON?"flex":"none"}}>
-          <button onClick={handleSelectedNoteDelete}><i class="fa-solid fa-trash"></i></button>
-          <button><i class="fa-solid fa-share"></i></button>
+          <button onClick={handleSelectedNoteDelete}><i className="fa-solid fa-trash"></i></button>
+          <button><i className="fa-solid fa-share"></i></button>
     </div>
     </>
 

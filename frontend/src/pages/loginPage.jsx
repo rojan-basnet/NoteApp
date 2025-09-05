@@ -30,7 +30,7 @@ e.preventDefault();
   if(user.password.length>=8 && user.userName.length>0){
 
     try{
-      const response=await fetch(`/api/login`,
+      const response=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/login`,
         {
           method: "POST",
           headers: {

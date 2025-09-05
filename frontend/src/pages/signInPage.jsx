@@ -22,7 +22,7 @@ async function createNewUser(e){
   e.preventDefault();
   if(user.password.length>=8 && user.userName.length>0){
     try{
-      const response=await fetch(`/api/createNewUser`,
+      const response=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/createNewUser`,
         {
           method: "POST",
           headers: {

@@ -28,7 +28,7 @@ useEffect(()=>{
   if (!userToken) return
   try{
       async function fetchNotes(){
-        const res=await fetch(`/api/${id}/${noteId}/dashboard/notebody`,
+        const res=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${id}/${noteId}/dashboard/notebody`,
         {
         method:"GET",
         headers: {
@@ -50,7 +50,7 @@ async function handleNoteBodySubmit(){
   if(notebody.topic && notebody.content){
     setIsEmpty(false)
     try{
-      const res=await fetch(`/api/${id}/${noteId}/dashboard/notebody`,
+      const res=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${id}/${noteId}/dashboard/notebody`,
         {
           method: "POST",
           headers: {
@@ -73,7 +73,7 @@ async function handleNoteBodySubmit(){
 }
 async function handlenoteDelete(NoteDelId){
     try{
-        const res=await fetch(`/api/${id}/${noteId}/${NoteDelId}`,
+        const res=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${id}/${noteId}/${NoteDelId}`,
           {
             method: "DELETE",
             headers: {
@@ -96,7 +96,7 @@ function hideMailBox(){
   setshowMailBox(false)
 }
 async function handleUserLogout(){
-  const res= await fetch('/api/auth/del',{
+  const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/auth/del`,{
     method:"DELETE",
     headers:{
       "Content-Type": "application/json",
@@ -113,7 +113,7 @@ async function handleUserLogout(){
   return (
     <>
     <div className='navbarNoteBody' >
-      <button className='mailIcon' onClick={handleMailBoxShow}><i class="fa-solid fa-envelope"></i></button>
+      <button className='mailIcon' onClick={handleMailBoxShow}><i className="fa-solid fa-envelope"></i></button>
       <div className='mailboxWhole' style={{display:showMailBox?"flex":"none"}}>
           <div className='mailbox'> <div><h1>Mail Box </h1> <div className='hideBtn' onClick={hideMailBox}>X</div> </div> </div>
          
@@ -123,7 +123,7 @@ async function handleUserLogout(){
         <div><NavLink to= {`/${id}/${noteId}/dashboard/friends/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Shared</NavLink></div>
         <div><NavLink to={`/${id}/dashboard/`}>Subjects</NavLink></div>
       </div>
-       <button onClick={handleUserLogout} className='logoutBtn' ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+       <button onClick={handleUserLogout} className='logoutBtn' ><i className="fa-solid fa-arrow-right-from-bracket"></i></button>
     </div>
       <div className='notesContainer'>
           {subRelatedNotes.length === 0 ? (
