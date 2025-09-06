@@ -40,3 +40,16 @@ export const deleteNoteBody=async (req,res)=>{
         res.status(500).json("failed to delete note body")
     }
 }
+
+export const deleteManyNoteBody=async (req,res)=>{
+
+    const {ids}=req.body
+    
+    if(ids.length==0) return res.status(400).json({sucess:false,message:"no notes selected"})
+    try{
+        const deleted= await NoteBody.deleteMany({_id:{$in:ids}})
+        res.status(200).json({sucess:true,message:deleted})
+    }catch{
+        res.status(500).json({sucess:false,message:"failed to delte many notes"})
+    }
+}

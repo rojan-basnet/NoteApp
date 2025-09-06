@@ -5,6 +5,7 @@ import LoginPage from './pages/loginPage.jsx'
 import SignUpPage from './pages/signInPage.jsx'
 import Dashboard from './pages/dashboard.jsx'
 import NotePage from './pages/NotePage.jsx'
+import QuestionsPage from './pages/questons.jsx'
 function App() {
 
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/:id/dashboard' element={<Dashboard/>} />
         <Route path='/:id/:noteId/dashboard/notebody' element={<NotePage/>} />
         <Route path='/:id/:noteId/dashboard/friends/notebody' element={<NotePage/>} />
+        <Route path='/:id/:noteId/dashboard/notebody/questions' element={<QuestionsPage/>} />
       </Routes>
     </>
   )

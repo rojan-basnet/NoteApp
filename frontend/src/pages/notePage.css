@@ -143,6 +143,54 @@
   line-height: 1.5;
 }
 
+.optinsToShare button {
+  position: relative; 
+}
+
+.loader {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-top: 3px solid hsl(0, 0%, 0%);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.genBtn {
+  background: linear-gradient(135deg, #7f5af0, #9f7aea);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(127, 90, 240, 0.4);
+}
+
+.genBtn i {
+  transition: transform 0.3s ease;
+}
+
+.genBtn:hover {
+  box-shadow: 0 6px 20px rgba(159, 122, 234, 0.6);
+}
+
+.genBtn:hover i {
+  transform: scale(1.2);
+}
+
+
+
 .mainNotesContainer input[type="text"] {
   width: 97%;
   padding: 12px;

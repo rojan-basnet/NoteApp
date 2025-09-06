@@ -9,6 +9,7 @@ import noteBodyRoutes from './routes/noteBody.model.js'
 import { verifyJwtToken } from './middleware/verifyjwtToken.js';
 import jwt from 'jsonwebtoken'
 import { RefreshToken } from './models/refreshToken.js';
+import { GoogleGenAI } from '@google/genai';
 
 const PORT=process.env.PORT||5000;
 const __dirname=path.resolve()
@@ -17,6 +18,7 @@ const app=express();
 dotenv.config()
 app.use(cors()) 
 app.use(express.json())
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 app.post('/api/auth/refresh', async  (req,res)=>{
     const {refreshToken}=req.body;
@@ -55,6 +57,21 @@ app.use('/api/auth/del',verifyJwtToken, async (req,res)=>{
         res.status(500).json({success:false,message:"server error while deleting refresh token"})
     }
 })
+
+
+app.post("/api/gemini", async (req, res) => {
+  const { prompt } = req.body;
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
+
+    res.json({ result: response.text,data:response});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
 

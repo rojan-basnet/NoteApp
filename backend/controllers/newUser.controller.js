@@ -15,7 +15,7 @@ export const createUser=async (req,res)=>{
             const newCreatedUser = new newUser({userName,password:hashedPassword})
             await newCreatedUser.save()
 
-            const accessToken=jwt.sign({userName:userName, userId: newCreatedUser._id},process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1d"})
+            const accessToken=jwt.sign({userName:userName, userId: newCreatedUser._id},process.env.ACCESS_TOKEN_SECRET,{expiresIn:"15m"})
             const refreshToken=jwt.sign({userName:userName, userId: newCreatedUser._id},process.env.REFRESH_TOKEN_SECRET,{expiresIn:"7d"})
 
                     const newRefreshToken= new RefreshToken({refreshToken:refreshToken,username:userName})
@@ -39,7 +39,7 @@ export const loginUser=async (req,res)=>{
             if(await bcrypt.compare(password,user.password)){
 
                 try {
-                    const accessToken=jwt.sign({userName:userName, userId: user._id},process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1d"})
+                    const accessToken=jwt.sign({userName:userName, userId: user._id},process.env.ACCESS_TOKEN_SECRET,{expiresIn:"15m"})
                     const refreshToken=jwt.sign({userName:userName, userId: user._id},process.env.REFRESH_TOKEN_SECRET,{expiresIn:"7d"})
 
                     const newRefreshToken= new RefreshToken({refreshToken:refreshToken,username:userName})

@@ -39,6 +39,10 @@ useEffect(()=>{
         },
       }
     )
+    if(res.status===403){
+      console.log("token expired")
+
+    }
     const notes=await res.json()
     setUserNotes(notes.data)
     setNote({subject:""})
@@ -152,11 +156,24 @@ async function handleSelectedNoteDelete(){
           {
             userNotes.length==0?<div>You have no notes..</div>:userNotes.map(
               (ele,index)=>(
-                <div key={ele._id}>
-                  <input type="checkbox" style={{display:multiSelectIsON?"block":"none"}}  onChange={()=>handleSelectedNotes(ele)}/>
-                  <button onClick={()=>handleSubjectClick(ele)} disabled={multiSelectIsON ? true:false}> 
-                    {ele.subject}
+                <div key={ele._id} className='subjectContainer'>
+                  
+                  <input type="checkbox"
+                    checked={selectedNotesId.includes(ele._id)}
+                    style={{display:multiSelectIsON?"block":"none"}}
+                    onChange={() => handleSelectedNotes(ele)} 
+                     className='checkbox'/>
+
+                  <button onClick={()=>{
+                    if(multiSelectIsON){
+                      handleSelectedNotes(ele);
+                    }else{
+                      handleSubjectClick(ele);
+                    }
+                    }
+                  }> {ele.subject}
                 </button> 
+
               </div>))
           }
         </div>

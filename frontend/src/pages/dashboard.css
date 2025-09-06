@@ -97,7 +97,7 @@
 }
 
 .showNoteSub button:hover {
-  border: 2px solid #3F51B5;
+  border: 2px solid #3F51B5; 
   box-shadow: 0px 4px 10px rgba(63, 81, 181, 0.2);
   transform: scale(1.05);
 }
@@ -141,6 +141,16 @@
 }
 .optinsToShare button i:hover{
   color:hsl(0, 0%, 15%)
+}
+
+.subjectContainer{
+  position: relative;
+}
+.checkbox{
+  position: absolute;
+  left: 5px;
+  top:5px;
+  z-index: 5;
 }
 
 /* ===========================
