@@ -74,6 +74,7 @@ async function handleNoteBodySubmit(){
   }else{
     setIsEmpty(true)
   }
+  setShowAddNote(false)
 
 }
 async function handlenoteDelete(NoteDelId){
@@ -151,6 +152,8 @@ async function handleSelectedNoteDelete(){
   setSelectedNotesId([]);
   setNewNoteCounter(prev=>prev+1);
   setMultiSelectIsON(false)
+  setIsDeleting(false)
+
 }
 
 function handleSelectAll(){
@@ -158,7 +161,6 @@ function handleSelectAll(){
 
   if(selectedNotesId.length===ids.length) return
   setSelectedNotesId(...selectedNotesId,ids)
-setIsDeleting(false)
 }
 
 async function handleFetchGemini(){
@@ -186,9 +188,8 @@ async function handleFetchGemini(){
   }
 
   else{
-    const notes=subRelatedNotes.filter((ele,index)=>ele._id==selectedNotesId[index])
-    
-   const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/gemini`,{
+    const notes= subRelatedNotes.filter((ele,index)=>selectedNotesId.includes(ele._id))
+    const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/gemini`,{
       method:"POST",
       headers:{
         "Content-Type": "application/json",

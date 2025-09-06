@@ -5,8 +5,6 @@ import './questionPage.css';
 const QuestionsPage = () => {
   const location = useLocation();
   const { id, noteId } = useParams();
-
-  // geminiResponse is passed via state when navigating
   const geminiResponse = location.state?.geminiResponse || [];
 
   return (
