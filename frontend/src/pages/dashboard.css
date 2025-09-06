@@ -157,6 +157,15 @@
    Mobile Responsive
 =========================== */
 @media (max-width: 600px) {
+  .optinsToShare{
+    width: 90%;
+  }
+  .optinsToShare button i{
+  font-size: 1rem;
+  }
+  .optinsToShare i div{
+    font-size: .5rem;
+  }
   .newSubInput {
     flex-direction: column;
   }

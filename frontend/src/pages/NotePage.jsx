@@ -214,11 +214,12 @@ async function handleFetchGemini(){
   return (
     <>
     <div className='navbarNoteBody' >
+
       <button className='mailIcon' onClick={handleMailBoxShow}><i className="fa-solid fa-envelope"></i></button>
+
       <div className='mailboxWhole' style={{display:showMailBox?"flex":"none"}}>
           <div className='mailbox'> <div><h1>Mail Box </h1> <div className='hideBtn' onClick={hideMailBox}>X</div> </div> </div>
-         
-         </div>
+      </div>
 
       <div>
         <div><NavLink to= {`/${id}/${noteId}/dashboard/notebody` } className={({ isActive }) => (isActive ? "active" : "")}>Notes</NavLink></div>
@@ -235,7 +236,7 @@ async function handleFetchGemini(){
             <div className='noNotesMessage'>
               <div className='noNotesIcon'>📝</div>
               <h3>No Notes Yet</h3>
-              <p>Start by adding your first note! Click the + button above to get started.</p>
+              <p>Start by adding your first note! Click the + button below to get started.</p>
             </div>
           ) : (
             subRelatedNotes.map((ele,index)=>(
@@ -261,9 +262,9 @@ async function handleFetchGemini(){
     <div className='addNoteButton' onClick={()=>{setShowAddNote(prev=>!prev); setMultiSelectIsON(false);}}>+</div>
 
     <div className='optinsToShare' style={{display:multiSelectIsON?"flex":"none"}}>
-          <button disabled={isDeleting?true:false} onClick={handleSelectedNoteDelete}> <div className={isDeleting?"loader":""}></div> <i className="fa-solid fa-trash"></i></button>
-          <button onClick={handleSelectAll}><i className="fa-solid fa-check-double"></i></button>
-          <button disabled={isLoading?true:false} onClick={handleFetchGemini} ><div className={isLoading?"loader":""}></div><i className="fa-solid fa-wand-magic-sparkles"></i></button>
+          <button disabled={isDeleting?true:false} onClick={handleSelectedNoteDelete}> <div className={isDeleting?"loader":""}></div> <i className="fa-solid fa-trash"></i><div>Delete</div></button>
+          <button onClick={handleSelectAll}><i className="fa-solid fa-check-double"></i><div>Select all</div></button>
+          <button disabled={isLoading?true:false} onClick={handleFetchGemini} ><div className={isLoading?"loader":""}></div><i className="fa-solid fa-wand-magic-sparkles"></i><div style={{display:"flex"}}>Generate questons</div></button>
     </div>
     </>
   )
