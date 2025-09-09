@@ -14,14 +14,19 @@ const [subRelatedNotes,setSubRelatedNotes]=useState([]);
 const [newNoteCounter,setNewNoteCounter]=useState(0);
 const [isEmpty,setIsEmpty]=useState(false);
 const [userToken,setUserToken]=useState("");
-const {id,noteId}=useParams()
+const {id,noteId}=useParams();
 const [showAddNote,setShowAddNote]=useState(false);
-const [showMailBox,setshowMailBox]=useState(false)
-const [multiSelectIsON,setMultiSelectIsON]=useState(false)
+const [showMailBox,setshowMailBox]=useState(false);
+const [multiSelectIsON,setMultiSelectIsON]=useState(false);
 const [selectedNotesId,setSelectedNotesId]=useState([]);
 const [geminiResponse,setGeminiResponse]=useState([]);
-const [isLoading,setIsLoading]=useState(false)
+const [isLoading,setIsLoading]=useState(false);
 const [isDeleting,setIsDeleting]=useState(false);
+const [isEditing,setIsEditing]=useState(false);
+const [draftNote,setDraftNote]=useState({
+    topic:"",
+    content:""
+});
 const navigate=useNavigate()
 
 useEffect(()=>{
@@ -159,8 +164,11 @@ async function handleSelectedNoteDelete(){
 function handleSelectAll(){
   const ids=subRelatedNotes.map(note=>note._id)
 
-  if(selectedNotesId.length===ids.length) return
-  setSelectedNotesId(...selectedNotesId,ids)
+  if(selectedNotesId.length===ids.length){
+    setSelectedNotesId([])
+  }else{
+  setSelectedNotesId(ids)
+  }
 }
 
 async function handleFetchGemini(){
@@ -212,6 +220,47 @@ async function handleFetchGemini(){
   }
   setIsLoading(false)
 }
+
+
+function handleEditText(ele){
+  setIsEditing(true)
+
+  setDraftNote({
+    topic:ele.topic,
+    content:ele.content,
+    selfId:ele._id
+})
+
+}
+
+async function handleChangeSave(){
+
+  if (!draftNote.topic || !draftNote.content) return
+
+  else{
+
+      try{
+    const res=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/${id}/${noteId}/${draftNote.selfId}/edit`,{
+      method:"PUT",
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${userToken}`
+      },
+      body:JSON.stringify(draftNote)
+    })
+
+    const data=await res.json()
+    setNewNoteCounter(prev=>prev+1)
+    setIsEditing(false)
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+function handleCancelEdit(){
+  setIsEditing(false)
+}
   return (
     <>
     <div className='navbarNoteBody' >
@@ -239,14 +288,21 @@ async function handleFetchGemini(){
               <h3>No Notes Yet</h3>
               <p>Start by adding your first note! Click the + button below to get started.</p>
             </div>
+
           ) : (
             subRelatedNotes.map((ele,index)=>(
               <div key={index} className='NoteTopic' onClick={()=>{if(multiSelectIsON){handleSelectedNotes(ele._id)}}}>
                 <input type="checkbox" style={{display:multiSelectIsON?"flex":"none"}} checked={selectedNotesId.includes(ele._id)} onChange={handleSelectedNotes}/>
                 {ele.topic} 
-                <i className="fa-solid fa-trash" onClick={()=>handlenoteDelete(ele._id)}></i> 
-                <br /> 
+
+                <div className='NoteTopicIcons'>
+                  <i className="fa-solid fa-pen-to-square" onClick={()=>handleEditText(ele)} ></i>
+                  <i className="fa-solid fa-trash" onClick={()=>handlenoteDelete(ele._id)}></i> 
+                </div>
+
                 <div className='NoteContent'>{ele.content}</div>
+
+                
               </div>
             ))
           )}
@@ -266,6 +322,20 @@ async function handleFetchGemini(){
           <button disabled={isDeleting?true:false} onClick={handleSelectedNoteDelete}> <div className={isDeleting?"loader":""}></div> <i className="fa-solid fa-trash"></i><div>Delete</div></button>
           <button onClick={handleSelectAll}><i className="fa-solid fa-check-double"></i><div>Select all</div></button>
           <button disabled={isLoading?true:false} onClick={handleFetchGemini} ><div className={isLoading?"loader":""}></div><i className="fa-solid fa-wand-magic-sparkles"></i><div style={{display:"flex"}}>Generate questons</div></button>
+    </div>
+    
+    <div className='editNoteContainerBackGround' style={{display:isEditing?"flex":"none"}} >
+      <div className='middleMan' onClick={handleCancelEdit}></div>
+      <div  className='editNoteContainer'> 
+        <i className="fa-solid fa-xmark" onClick={handleCancelEdit}></i>
+        <input type="text" value={draftNote.topic} placeholder='Topic' className='editNoteTopic'
+        onChange={e=>setDraftNote(prev => ({ ...prev, topic:e.target.value }))}/> 
+
+        <textarea value={draftNote.content} placeholder='Content' className='ditNoteContainerContent'
+        onChange= {e=>setDraftNote(prev => ({ ...prev, content: e.target.value }))}></textarea>
+        
+        <button onClick={handleChangeSave}>Change</button>
+      </div>
     </div>
     </>
   )

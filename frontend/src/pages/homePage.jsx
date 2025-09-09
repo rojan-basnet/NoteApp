@@ -57,9 +57,14 @@ getrefreshToken()
         <h1>Notes App Features </h1>
         <ul>
           <li> <b>Secure Auth:</b>  Signup/Login with bcrypt</li>
-          <li> <b>Notes CRUD:</b> Add, delete, view notes (update feature comming soon) </li>
+          <li> <b>Notes CRUD:</b> Add, update, delete, view notes </li>
           <li> <b>Responsive UI:</b> Built with React</li>
           <li> <b>Backend:</b> Node.js, Express, MongoDB</li>
+        </ul>
+        <h3>New Features</h3>
+        <ul>
+          <li><b>AI QUESTION GENERATION:</b> Users can generate question form notes with the help of AI.</li>
+          <li><b>JWT authentication:</b> JWT authentication intregation which improves security and user experience.</li>
         </ul>
       </div>
     </div>

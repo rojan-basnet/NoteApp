@@ -67,3 +67,8 @@ body{
 .featuresTable ul li:hover{
     background-color: grey;
 }
+
+textarea{
+    field-sizing: content;
+    resize: none;
+}

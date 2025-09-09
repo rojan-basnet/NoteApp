@@ -1,5 +1,5 @@
 import express from 'express'
-import { createNoteBody,deleteNoteBody,getNoteBody ,deleteManyNoteBody} from '../controllers/noteBody.controller.js'
+import { createNoteBody,deleteNoteBody,getNoteBody ,deleteManyNoteBody,editNote} from '../controllers/noteBody.controller.js'
 
 const router =express.Router({ mergeParams: true })
 
@@ -10,6 +10,8 @@ router.get('/dashboard/notebody',getNoteBody)
 router.delete('/manydel',deleteManyNoteBody)
 
 router.delete('/:notebodyId',deleteNoteBody)
+
+router.put('/:notebodyId/edit',editNote)
 
 
 

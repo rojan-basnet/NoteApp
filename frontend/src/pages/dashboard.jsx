@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useEffect } from 'react';
+import { useState ,useEffect} from 'react'
 import { useNavigate} from 'react-router-dom';
 import './dashboard.css'
 
@@ -149,7 +148,7 @@ async function handleSelectedNoteDelete(){
     <div className='dashboardContainer'>
         <div className='newSubInput'>
           <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"hsla(0, 100%, 42%, 1.00)":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
-          <button onClick={handleNoteSubmit} disabled={loading}>{ loading? <div className="loader"></div>:"Add Subject" }</button>
+          <button onClick={handleNoteSubmit} disabled={loading}>{ loading?<div className="loader" ></div> :"Add Subject" }</button>
         </div>
 
         <div className='showNoteSub'>

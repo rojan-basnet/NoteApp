@@ -282,7 +282,19 @@
   border-left: 2px solid #e2e8f0;
 }
 
-.notesContainer .NoteTopic i {
+
+
+.notesContainer .NoteTopicIcons :nth-child(1) {
+  position: absolute;
+  top: 18px;
+  right: 50px;
+  color: #343434;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notesContainer .NoteTopicIcons :nth-child(2) {
   position: absolute;
   top: 18px;
   right: 18px;
@@ -292,10 +304,16 @@
   transition: all 0.2s ease;
 }
 
-.notesContainer .NoteTopic i:hover {
+.notesContainer .NoteTopicIcons :nth-child(1):hover {
+  color: #000000;
+  transform: scale(1.05);
+}
+
+.notesContainer .NoteTopicIcons :nth-child(2):hover {
   color: #dc2626;
   transform: scale(1.05);
 }
+
 
 /* No Notes Message Styling */
 .noNotesMessage {
@@ -324,6 +342,93 @@
   max-width: 300px;
   margin: 0 auto;
 }
+
+/* Background overlay with blur */
+.editNoteContainerBackGround {
+  position: fixed; /* cover the whole screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4); /* semi-transparent dark overlay */
+  backdrop-filter: blur(8px); /* apply blur effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 901; /* make sure it’s on top */
+}
+.middleMan{
+  position: fixed; /* cover the whole screen */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 903;
+}
+/* Container for editing */
+.editNoteContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* space between elements */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.85); /* slightly transparent white */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(146, 146, 146, 0.2);
+  max-width: 600px;
+  width: 90%;
+  z-index: 999;
+}
+
+/* Topic input */
+.editNoteTopic {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.editNoteTopic:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79,70,229,0.3);
+}
+
+/* Content textarea */
+.ditNoteContainerContent {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-height: 120px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ditNoteContainerContent:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79,70,229,0.3);
+}
+
+/* Save button */
+.editNoteContainer button {
+  align-self:flex-end;
+  padding: 10px 20px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.editNoteContainer i {
+  align-self:flex-end ;
+}
+.editNoteContainer button:hover {
+  background-color: #4338ca;
+}
+
 
 @media (max-width: 600px) {
   .mainNotesContainer {
@@ -362,5 +467,8 @@
     font-weight:initial;
     color: black;
     padding:5px ;
+  }
+  .editNoteContainer{
+    padding: 10px;
   }
 }
