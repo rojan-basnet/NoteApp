@@ -73,16 +73,19 @@ e.preventDefault();
 
   return (
     <>
-    <div className='signPageForm'>
-    <h1>Log In</h1>
-    <form>
-      <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
-      <div style={{display:userNameAvailble ? "none":"flex",color:"red"}}> {userExistsMsg}</div>
-      <input type="text" placeholder="Password" value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
-      <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>{passwordValidMsg}</div>
-    </form>
-    <button onClick={loginUser}>Log in</button>
-    <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
+    <div className="stars"></div>
+    <div className='wholePageOfForm'>
+      <div className='signPageForm'>
+          <h1>Log In</h1>
+          <form>
+            <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
+            <div style={{display:userNameAvailble ? "none":"flex",color:"red"}}> {userExistsMsg}</div>
+            <input type="text" placeholder="Password" value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
+            <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>{passwordValidMsg}</div>
+          </form>
+          <button onClick={loginUser}>Log in</button>
+          <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
+      </div>
     </div>
     </>
 

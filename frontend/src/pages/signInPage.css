@@ -1,8 +1,63 @@
 /* ===========================
    Sign Page Form Container
 =========================== */
+.wholePageOfForm{
+  background: linear-gradient(-45deg, #0b0c2a, #1a1b3d, #0d0d1a, #1e1e3f);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* Tiny stars */
+.stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stars::after {
+  content: '';
+  position: absolute;
+  width: 2px; height: 2px;
+  background: white;
+  border-radius: 50%;
+  box-shadow:
+    50px 80px white,
+    200px 150px white,
+    400px 300px white,
+    600px 50px white,
+    800px 200px white,
+    1000px 400px white,
+    1200px 100px white,
+    1400px 350px white;
+  animation: twinkle 3s infinite alternate,floatStars 10s linear infinite;
+}
+
+
+/* twinkle animation */
+@keyframes twinkle {
+  0% {opacity: 0.3;}
+  100% {opacity: 1;}
+}
+@keyframes floatStars {
+  0% { transform: translateY(0) translateX(0); opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { transform: translateY(-200px) translateX(50px); opacity: 1; }
+}
+
 .signPageForm {
-  background-color: white;
+  background-color: hsl(0, 0%, 95%);
   padding: 20px;
   border-radius: 20px;
   display: flex;

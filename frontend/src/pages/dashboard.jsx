@@ -1,5 +1,6 @@
 import { useState ,useEffect} from 'react'
 import { useNavigate} from 'react-router-dom';
+import {toast,Toaster} from 'sonner'
 import './dashboard.css'
 
 const Dashboard = () => {
@@ -57,6 +58,7 @@ handleNotesFetch()
 
 async function handleNoteSubmit(){
   if(note.subject){
+    const toastId=toast.loading("Adding new Subject")
     setLoading(true)
     setIsEmpty(false)
     try{
@@ -72,6 +74,7 @@ async function handleNoteSubmit(){
     )
       const res = await response.json();
       setNoteSubmitCounter(NC=>NC+1)
+      toast.success("Added new Subject",{id:toastId,duration:1000})
       setLoading(false)
     }catch(error){
       console.log(error)
@@ -148,7 +151,7 @@ async function handleSelectedNoteDelete(){
     <div className='dashboardContainer'>
         <div className='newSubInput'>
           <input type="text" className='subjectInput'  placeholder={isEmpty? "You must enter a subject !":"Add new subject"} style={{"--placeholder-color": isEmpty?"hsla(0, 100%, 42%, 1.00)":"grey"}} value={note.subject}  onChange={(e)=>{setNote({...note,subject:e.target.value})}}/>
-          <button onClick={handleNoteSubmit} disabled={loading}>{ loading?<div className="loader" ></div> :"Add Subject" }</button>
+          <button onClick={handleNoteSubmit} disabled={loading}>Add Subject</button>
         </div>
 
         <div className='showNoteSub'>
@@ -182,6 +185,7 @@ async function handleSelectedNoteDelete(){
           <button onClick={handleSelectedNoteDelete}><i className="fa-solid fa-trash"></i></button>
           <button><i className="fa-solid fa-share"></i></button>
     </div>
+    <Toaster/>
     </>
 
   )

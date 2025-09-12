@@ -1,26 +1,30 @@
 
 
 .questionsContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 90%;
   max-width: 900px;
   padding: 35px;
-  background: #ffffff; /* solid white container */
+  background: #ffffff; 
   border-radius: 15px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   gap: 25px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); /* subtle depth */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
 .questionsContainer h1 {
   text-align: center;
   font-size: 2.2rem;
-  color: #007BFF; /* accent color */
+  color: #0061e0; 
 }
 
 .questionItem {
-  background: #fafafa; /* slightly off-white for distinction */
-  border-left: 4px solid #007BFF; /* subtle accent */
+  background: #fafafa;
+  border-left: 4px solid #815cf0;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* soft depth */
@@ -28,20 +32,20 @@
 }
 
 .questionItem:hover {
-  transform: translateY(-2px); /* very subtle lift */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* slightly stronger shadow */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
 .questionItem h3 {
   margin: 0 0 8px 0;
-  color: #007BFF;
+  color: #0062ac;
   font-size: 1.1rem;
 }
 
 .questionItem p {
-  margin: 0;
-  color: #555;
-  font-size: 0.95rem;
+  text-align: start;
+  color: #01184d;
+  font-size: 1rem;
 }
 
 .backBtn {
@@ -61,15 +65,9 @@
   transform: scale(1.03);
 }
 
-p {
-  font-size: 1rem;
-  text-align: center;
-  color: #666;
-}
-
 @media (max-width: 600px) {
   .questionsContainer {
-    padding: 20px;
+    padding: 10px;
     gap: 15px;
   }
 

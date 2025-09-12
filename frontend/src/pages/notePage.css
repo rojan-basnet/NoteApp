@@ -9,8 +9,20 @@
   position: fixed;
   bottom: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  animation: appear 0.5s ease forwards;
 }
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1); 
+  }
+}
+
 .navbarNoteBody{
   display: flex;
   justify-content: space-around;
@@ -141,9 +153,6 @@
   color: #424242;
 }
 
-.optinsToShare button {
-  position: relative; 
-}
 
 .loader {
   position: absolute;

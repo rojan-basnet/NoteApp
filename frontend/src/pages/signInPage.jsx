@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import './signInPage.css'
@@ -62,16 +62,19 @@ async function createNewUser(e){
 }
   return (
     <>
-    <div className='signPageForm'>
-    <h1>Create an account</h1>
-    <form>
-      <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
-      <div style={{display:userNameAvailble ? "none":"flex",color:"red"}}> {useNameAvailableMsg}</div>
-      <input type="text" placeholder='Password' value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
-      <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Password must be at least 8 letters !!!</div>
-    </form>
-    <button onClick={createNewUser}>Create account</button>
-    <p>Already have an account ? <Link to="/loginpage">Log in</Link></p>
+    <div className="stars"></div>
+    <div className='wholePageOfForm'>
+      <div className='signPageForm'>
+          <h1>Create an account</h1>
+          <form>
+            <input type="text" placeholder='Username' value={user.userName}  onChange={(e)=>setUser({...user,userName:e.target.value})}/>
+            <div style={{display:userNameAvailble ? "none":"flex",color:"red"}}> {useNameAvailableMsg}</div>
+            <input type="text" placeholder='Password' value={user.password} onChange={(e)=>{setUser({...user,password:e.target.value})}}  />
+            <div style={{display:invalidPassword ? "flex":"none",color:"red"}}>Password must be at least 8 letters !!!</div>
+          </form>
+          <button onClick={createNewUser}>Create account</button>
+          <p>Already have an account ? <Link to="/loginpage">Log in</Link></p>
+      </div>
     </div>
     </>
   )
