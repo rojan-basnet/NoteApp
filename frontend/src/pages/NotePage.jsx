@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState} from 'react'
 import { useParams ,NavLink,useNavigate} from 'react-router-dom'
+import { toast,Toaster } from 'sonner';
 import './notePage.css'
 
 
@@ -73,6 +74,7 @@ async function handleNoteBodySubmit(){
       const data = await res.json();
       setNewNoteCounter(prev=>prev+1)
       setNoteBody({topic:"",content:""})
+      toast.success("New Note Added",{duration:1000})
     }catch(error){
       console.log(error)
     }
@@ -172,6 +174,9 @@ function handleSelectAll(){
 }
 
 async function handleFetchGemini(){
+  if(selectedNotesId.length===0){
+    return toast.info("please select a note")
+  }
 
   setIsLoading(true)
   if(selectedNotesId.length==subRelatedNotes.length){
@@ -252,8 +257,10 @@ async function handleChangeSave(){
     const data=await res.json()
     setNewNoteCounter(prev=>prev+1)
     setIsEditing(false)
+    toast.success("Note Updated",{duration:1000})
     }catch(error){
       console.log(error)
+      toast.error("Failed to Update")
     }
   }
 }
@@ -337,6 +344,7 @@ function handleCancelEdit(){
         <button onClick={handleChangeSave}>Change</button>
       </div>
     </div>
+    <Toaster richColors/>
     </>
   )
 }

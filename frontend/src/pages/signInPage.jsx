@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import { Toaster,toast } from 'sonner'
 import './signInPage.css'
 
 const SignUpPage = () => {
@@ -21,6 +22,7 @@ async function createNewUser(e){
 
   e.preventDefault();
   if(user.password.length>=8 && user.userName.length>0){
+    const toastId=toast.loading("Signing In")
     try{
       const response=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/createNewUser`,
         {
@@ -35,6 +37,7 @@ async function createNewUser(e){
       const res = await response.json();
 
           if(response.status==201){ 
+            toast.success("Account Created",{id:toastId})
             setUser({userName:"",password:""});
             navigate(`/${res.data._id}/dashboard`);
             localStorage.setItem("userId",res.data._id)
@@ -44,6 +47,7 @@ async function createNewUser(e){
           }
           else if(response.status==409){
             setuserNameAvailble(false)
+            toast.warning("Username not available",{id:toastId})
             setuseNameAvailableMsg("Username already exists !")
     }
     }catch(error){
@@ -76,6 +80,7 @@ async function createNewUser(e){
           <p>Already have an account ? <Link to="/loginpage">Log in</Link></p>
       </div>
     </div>
+    <Toaster richColors />
     </>
   )
 }

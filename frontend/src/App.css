@@ -72,3 +72,10 @@ textarea{
     field-sizing: content;
     resize: none;
 }
+@media (max-width: 480px) {
+  .sonner-toast {
+    font-size: 14px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+  }
+}

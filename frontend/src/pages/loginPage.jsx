@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './signInPage.css'
+import {toast,Toaster} from 'sonner'
 
 const LoginPage = () => {
 const [user,setUser]=useState({
@@ -28,7 +29,7 @@ e.preventDefault();
     setuserNameAvailble(true)
     setinvalidPassword(false)
   if(user.password.length>=8 && user.userName.length>0){
-
+    const toastId=toast.loading("Logging In")
     try{
       const response=await fetch(`${import.meta.env.VITE_FETCH_URL}/api/login`,
         {
@@ -45,13 +46,14 @@ e.preventDefault();
           localStorage.setItem("userId",resData.data._id);
           localStorage.setItem("userToken",resData.accessToken);
           localStorage.setItem("refreshToken",resData.refreshToken);
+          toast.success("Success",{id:toastId})
           navigate(`/${resData.data._id}/dashboard`);
-
         }
         else if(response.status===401){
           setUser({...user,password:""})
           setinvalidPassword(true)
           setpasswordValidMsg("Incorrect Password!!!")
+          toast.warning("Incorret password",{id:toastId})
         }
         else if(response.status==404){
           setuserNameAvailble(false)
@@ -87,6 +89,7 @@ e.preventDefault();
           <p>Don't have an account ? <Link to="/signUpPage">Sign Up</Link></p>
       </div>
     </div>
+    <Toaster richColors />
     </>
 
   )

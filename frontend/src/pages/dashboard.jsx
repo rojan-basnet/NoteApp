@@ -90,6 +90,7 @@ navigate(`/${userId}/${noteId}/dashboard/notebody`)
 }
 
 async function handleUserLogout(){
+  const id=toast.loading("Logging out")
   const res= await fetch(`${import.meta.env.VITE_FETCH_URL}/api/auth/del`,{
     method:"DELETE",
     headers:{
@@ -98,10 +99,15 @@ async function handleUserLogout(){
     },
     body:JSON.stringify({refreshToken:localStorage.getItem("refreshToken")})
   })
+  const data= await res.json()
   if(res.ok){
+    toast.success("Logged Out",{id})
     navigate('/loginPage')
   }
-  const data= await res.json()
+  else{
+    toast.error("Failed to log out",{id})
+  }
+
 }
 
 function handleMultitSelect(){
@@ -185,7 +191,7 @@ async function handleSelectedNoteDelete(){
           <button onClick={handleSelectedNoteDelete}><i className="fa-solid fa-trash"></i></button>
           <button><i className="fa-solid fa-share"></i></button>
     </div>
-    <Toaster/>
+    <Toaster richColors />
     </>
 
   )
